@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Assets\Script\BackGroundManager.cs" />
     <Compile Include="Assets\Script\CameraFollowTarget.cs" />
+    <Compile Include="Assets\Script\PlayerMoving.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Sprite\BackGround\Moon Graveyard\Final\Social\Autor_note.txt" />
