@@ -66,7 +66,9 @@
     <Compile Include="Assets\Script\PlayerMoving.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Sprite\Effact\Pixel Art Animations - Slashes\Thank you!.txt" />
     <None Include="Assets\Sprite\BackGround\Moon Graveyard\Final\Social\Autor_note.txt" />
+    <None Include="Assets\Sprite\Effact\Pixel Art Animations - Slashes\SECRET DISCOUNT COUPON.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
