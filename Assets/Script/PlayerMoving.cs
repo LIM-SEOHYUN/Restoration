@@ -9,14 +9,8 @@ public class PlayerMoving : MonoBehaviour
     private Animator animator;
     private bool isGrounded = true;
 
-    [Header("AnimationController")]
-    public RuntimeAnimatorController idleController;
-    public RuntimeAnimatorController runController;
-    public RuntimeAnimatorController jumpController;
-    public RuntimeAnimatorController hitController;
-    public RuntimeAnimatorController ultimateController; //±Ã±Ø±â
-    public RuntimeAnimatorController deadController;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public PlayerState currentState = PlayerState.Normal;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -24,43 +18,30 @@ public class PlayerMoving : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        Movement();
-        Jump();
+        if (currentState != PlayerState.Dead)
+        {
+            Movement();
+            Jump();
+        }
     }
 
     void Movement()
     {
-        float moveInput = 0f;
+        float moveInput = Input.GetAxisRaw("Horizontal");
+        float speed = (currentState == PlayerState.Ultimate) ? moveSpeed * 1.5f : moveSpeed;
 
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-        {
-            moveInput = -1f;
-        }
-        else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
-        {
-            moveInput = 1f;
-        }
+        rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);
 
-        rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
-
-        if (moveInput != 0 && spriteRenderer != null)
+        if (moveInput != 0)
         {
             spriteRenderer.flipX = moveInput < 0;
+            animator.SetBool("isRunning", true);
         }
-
-        if (isGrounded)
+        else
         {
-            if (moveInput != 0)
-            {
-                SetAnimatorController(runController);
-            }
-            else
-            {
-                SetAnimatorController(idleController);
-            }
+            animator.SetBool("isRunning", false);
         }
     }
 
@@ -70,17 +51,7 @@ public class PlayerMoving : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             isGrounded = false;
-        }
-        
-
-        SetAnimatorController(jumpController);
-    }
-
-    void SetAnimatorController(RuntimeAnimatorController controller)
-    {
-        if (animator != null && controller != null)
-        {
-            animator.runtimeAnimatorController = controller;
+            animator.SetBool("isJumping", true);
         }
     }
 
@@ -89,8 +60,7 @@ public class PlayerMoving : MonoBehaviour
         if (collision.gameObject.GetComponent<UnityEngine.Tilemaps.Tilemap>() != null)
         {
             isGrounded = true;
-
-            SetAnimatorController(idleController);
+            animator.SetBool("isJumping", false);
         }
     }
 }

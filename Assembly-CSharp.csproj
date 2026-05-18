@@ -62,7 +62,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\BackGroundManager.cs" />
+    <Compile Include="Assets\Script\PlayerAction.cs" />
+    <Compile Include="Assets\Script\PlayerState.cs" />
     <Compile Include="Assets\Script\CameraFollowTarget.cs" />
+    <Compile Include="Assets\Script\PlayerHealth.cs" />
     <Compile Include="Assets\Script\PlayerMoving.cs" />
   </ItemGroup>
   <ItemGroup>
