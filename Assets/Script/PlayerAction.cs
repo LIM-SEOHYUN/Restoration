@@ -6,6 +6,8 @@ public class PlayerAction : MonoBehaviour
     public PlayerMoving playerMoving;
     private Animator animator;
 
+    public CutsceneUI cutsceneUI; // ÄÆ¾À UI Á¦¾î ½ºÅ©¸³Æ®
+
     private bool canUseUltimate = true; //±Ã±Ø±â°¡ ½ÇÇàµÇ¾ú´ÂÁö
     private bool canUseRightSkill = true; //¿ìÅ¬¸¯ ½ºÅ³
 
@@ -55,6 +57,7 @@ public class PlayerAction : MonoBehaviour
     {
         playerMoving.currentState = PlayerState.Ultimate;
         animator.SetBool("isUltimate", true);
+        cutsceneUI.ShowCutscene(); // ÄÆ¾À ½ÇÇà
         StartCoroutine(UltimateDuration(10f));
         StartCoroutine(UltimateCooldown(30f));
     }
