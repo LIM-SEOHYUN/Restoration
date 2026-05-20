@@ -1,0 +1,135 @@
+{
+  "generated_at_utc": "2026-04-26T08:07:54.073217+00:00",
+  "pack": {
+    "title": "Fantasy Pixel Icons",
+    "pack_key": "skills",
+    "tier": "free",
+    "version": "v001",
+    "archive_name": "fantasy-pixel-icons-skills-free-v001.zip",
+    "profile": "standard",
+    "sizes": [
+      32,
+      64,
+      128
+    ]
+  },
+  "icons": [
+    {
+      "id": "arcane-arrows",
+      "name": "arcane-arrows",
+      "files": {
+        "32": "32/arcane-arrows.png",
+        "64": "64/arcane-arrows.png",
+        "128": "128/arcane-arrows.png"
+      }
+    },
+    {
+      "id": "burning-blood",
+      "name": "burning-blood",
+      "files": {
+        "32": "32/burning-blood.png",
+        "64": "64/burning-blood.png",
+        "128": "128/burning-blood.png"
+      }
+    },
+    {
+      "id": "conjure-demon",
+      "name": "conjure-demon",
+      "files": {
+        "32": "32/conjure-demon.png",
+        "64": "64/conjure-demon.png",
+        "128": "128/conjure-demon.png"
+      }
+    },
+    {
+      "id": "consuming-dark",
+      "name": "consuming-dark",
+      "files": {
+        "32": "32/consuming-dark.png",
+        "64": "64/consuming-dark.png",
+        "128": "128/consuming-dark.png"
+      }
+    },
+    {
+      "id": "electrify",
+      "name": "electrify",
+      "files": {
+        "32": "32/electrify.png",
+        "64": "64/electrify.png",
+        "128": "128/electrify.png"
+      }
+    },
+    {
+      "id": "ember-might",
+      "name": "ember-might",
+      "files": {
+        "32": "32/ember-might.png",
+        "64": "64/ember-might.png",
+        "128": "128/ember-might.png"
+      }
+    },
+    {
+      "id": "fire-barrier",
+      "name": "fire-barrier",
+      "files": {
+        "32": "32/fire-barrier.png",
+        "64": "64/fire-barrier.png",
+        "128": "128/fire-barrier.png"
+      }
+    },
+    {
+      "id": "frozen",
+      "name": "frozen",
+      "files": {
+        "32": "32/frozen.png",
+        "64": "64/frozen.png",
+        "128": "128/frozen.png"
+      }
+    },
+    {
+      "id": "gale-force",
+      "name": "gale-force",
+      "files": {
+        "32": "32/gale-force.png",
+        "64": "64/gale-force.png",
+        "128": "128/gale-force.png"
+      }
+    },
+    {
+      "id": "jade-dash",
+      "name": "jade-dash",
+      "files": {
+        "32": "32/jade-dash.png",
+        "64": "64/jade-dash.png",
+        "128": "128/jade-dash.png"
+      }
+    },
+    {
+      "id": "revival",
+      "name": "revival",
+      "files": {
+        "32": "32/revival.png",
+        "64": "64/revival.png",
+        "128": "128/revival.png"
+      }
+    },
+    {
+      "id": "skeletal-lightning",
+      "name": "skeletal-lightning",
+      "files": {
+        "32": "32/skeletal-lightning.png",
+        "64": "64/skeletal-lightning.png",
+        "128": "128/skeletal-lightning.png"
+      }
+    },
+    {
+      "id": "woodland-archer",
+      "name": "woodland-archer",
+      "files": {
+        "32": "32/woodland-archer.png",
+        "64": "64/woodland-archer.png",
+        "128": "128/woodland-archer.png"
+      }
+    }
+  ]
+}

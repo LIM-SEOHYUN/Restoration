@@ -3,13 +3,16 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     public int hp = 100;
+    public int maxHp = 100;
     public PlayerMoving playerMoving;
     private Animator animator;
     private bool isDead = false;
+    public StatusUI statusUI;
 
     void Start()
     {
         animator = GetComponent<Animator>();
+        statusUI.UpdateHP(hp, maxHp);
     }
 
     public void TakeDamage(int damage)
@@ -17,6 +20,10 @@ public class PlayerHealth : MonoBehaviour
         if (isDead) return;
 
         hp -= damage;
+        if (hp < 0) hp = 0;
+
+        statusUI.UpdateHP(hp, maxHp);//체력 UI 갱신
+
         if (hp <= 0)
         {
             Die();
