@@ -35,7 +35,7 @@ public class CutsceneUI : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         t = 0f;
         while (t < 1f)

@@ -1,0 +1,135 @@
+{
+  "generated_at_utc": "2026-04-23T06:45:07.820753+00:00",
+  "pack": {
+    "title": "Fantasy Pixel Icons",
+    "pack_key": "elements",
+    "tier": "free",
+    "version": "v003",
+    "archive_name": "fantasy-pixel-icons-elements-free-v003.zip",
+    "profile": "standard",
+    "sizes": [
+      32,
+      64,
+      128
+    ]
+  },
+  "icons": [
+    {
+      "id": "blessed-orb",
+      "name": "blessed-orb",
+      "files": {
+        "32": "32/blessed-orb.png",
+        "64": "64/blessed-orb.png",
+        "128": "128/blessed-orb.png"
+      }
+    },
+    {
+      "id": "blight-smite",
+      "name": "blight-smite",
+      "files": {
+        "32": "32/blight-smite.png",
+        "64": "64/blight-smite.png",
+        "128": "128/blight-smite.png"
+      }
+    },
+    {
+      "id": "crimson-pulse",
+      "name": "crimson-pulse",
+      "files": {
+        "32": "32/crimson-pulse.png",
+        "64": "64/crimson-pulse.png",
+        "128": "128/crimson-pulse.png"
+      }
+    },
+    {
+      "id": "dark-bolt",
+      "name": "dark-bolt",
+      "files": {
+        "32": "32/dark-bolt.png",
+        "64": "64/dark-bolt.png",
+        "128": "128/dark-bolt.png"
+      }
+    },
+    {
+      "id": "earth-spike",
+      "name": "earth-spike",
+      "files": {
+        "32": "32/earth-spike.png",
+        "64": "64/earth-spike.png",
+        "128": "128/earth-spike.png"
+      }
+    },
+    {
+      "id": "firebolt",
+      "name": "firebolt",
+      "files": {
+        "32": "32/firebolt.png",
+        "64": "64/firebolt.png",
+        "128": "128/firebolt.png"
+      }
+    },
+    {
+      "id": "ice-spikes",
+      "name": "ice-spikes",
+      "files": {
+        "32": "32/ice-spikes.png",
+        "64": "64/ice-spikes.png",
+        "128": "128/ice-spikes.png"
+      }
+    },
+    {
+      "id": "light-beam",
+      "name": "light-beam",
+      "files": {
+        "32": "32/light-beam.png",
+        "64": "64/light-beam.png",
+        "128": "128/light-beam.png"
+      }
+    },
+    {
+      "id": "nature-heal",
+      "name": "nature-heal",
+      "files": {
+        "32": "32/nature-heal.png",
+        "64": "64/nature-heal.png",
+        "128": "128/nature-heal.png"
+      }
+    },
+    {
+      "id": "shock-ball",
+      "name": "shock-ball",
+      "files": {
+        "32": "32/shock-ball.png",
+        "64": "64/shock-ball.png",
+        "128": "128/shock-ball.png"
+      }
+    },
+    {
+      "id": "shooting-stars",
+      "name": "shooting-stars",
+      "files": {
+        "32": "32/shooting-stars.png",
+        "64": "64/shooting-stars.png",
+        "128": "128/shooting-stars.png"
+      }
+    },
+    {
+      "id": "tornado",
+      "name": "tornado",
+      "files": {
+        "32": "32/tornado.png",
+        "64": "64/tornado.png",
+        "128": "128/tornado.png"
+      }
+    },
+    {
+      "id": "warp",
+      "name": "warp",
+      "files": {
+        "32": "32/warp.png",
+        "64": "64/warp.png",
+        "128": "128/warp.png"
+      }
+    }
+  ]
+}

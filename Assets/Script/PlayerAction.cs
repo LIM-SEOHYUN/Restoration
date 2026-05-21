@@ -8,6 +8,9 @@ public class PlayerAction : MonoBehaviour
 
     public CutsceneUI cutsceneUI; // 컷씬 UI 제어 스크립트
 
+    public SkillCooldownUI rightSkillUI;//스킬 쿨타임 패널 코드 불러오기
+    public SkillCooldownUI ultimateSkillUI;
+
     private bool canUseUltimate = true; //궁극기가 실행되었는지
     private bool canUseRightSkill = true; //우클릭 스킬
 
@@ -38,6 +41,8 @@ public class PlayerAction : MonoBehaviour
     void NormalSkill() //우클릭 스킬
     {
         animator.SetTrigger("isSkill");
+        canUseRightSkill = false;
+        rightSkillUI.StartCooldown(5f);
         StartCoroutine(RightSkillCooldown(5f));
     }
 
@@ -58,8 +63,9 @@ public class PlayerAction : MonoBehaviour
         playerMoving.currentState = PlayerState.Ultimate;
         animator.SetBool("isUltimate", true);
         cutsceneUI.ShowCutscene(); // 컷씬 실행
+
+        ultimateSkillUI.SetGlow(true);//궁극기 시전 시 아이콘 빛남 효과
         StartCoroutine(UltimateDuration(10f));
-        StartCoroutine(UltimateCooldown(30f));
     }
 
     IEnumerator UltimateDuration(float duration)//궁극기 유지
@@ -73,6 +79,12 @@ public class PlayerAction : MonoBehaviour
         animator.SetTrigger("ultimateEnd");
         playerMoving.currentState = PlayerState.Normal;
         animator.SetBool("isUltimate", false);
+
+        ultimateSkillUI.SetGlow(false);
+
+        canUseUltimate = false;
+        ultimateSkillUI.StartCooldown(30f);
+        StartCoroutine(UltimateCooldown(30f));//궁극기 시전 종료 시점에 쿨타임 다시 시작
     }
 
     IEnumerator UltimateCooldown(float cooldownTime) //궁극기 쿨타임
@@ -81,4 +93,5 @@ public class PlayerAction : MonoBehaviour
         yield return new WaitForSeconds(cooldownTime);
         canUseUltimate = true;
     }
+
 }
