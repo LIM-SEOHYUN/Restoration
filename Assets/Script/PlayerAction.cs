@@ -3,12 +3,19 @@ using System.Collections;
 
 public class PlayerAction : MonoBehaviour
 {
+    [Header("SkillPrefab")]
+    public Transform attackSpawnPoint;
+    public GameObject normalAttackPrefab;
+    public GameObject rightClickSkillPrefab;
+    public GameObject ultimatePrefab;
+
     public PlayerMoving playerMoving;
     private Animator animator;
 
-    public CutsceneUI cutsceneUI; // ÄÆ¾À UI Á¦¾î ½ºÅ©¸³Æ®
+    public CutsceneUI cutsceneUI;// ÄÆ¾À UI Á¦¾î ½ºÅ©¸³Æ®
 
-    public SkillCooldownUI rightSkillUI;//½ºÅ³ ÄðÅ¸ÀÓ ÆÐ³Î ÄÚµå ºÒ·¯¿À±â
+    [Header("SkillCooldownUI")]
+    public SkillCooldownUI rightSkillUI;//½ºÅ³ ÄðÅ¸ÀÓ ÆÐ³Î
     public SkillCooldownUI ultimateSkillUI;
 
     private bool canUseUltimate = true; //±Ã±Ø±â°¡ ½ÇÇàµÇ¾ú´ÂÁö
@@ -53,9 +60,10 @@ public class PlayerAction : MonoBehaviour
         canUseRightSkill = true;
     }
 
-    void UltimateAttack() //±Ã±Ø±â ½ÃÀü ÈÄ ½ºÅ³
+    void UltimateAttack()//±Ã±Ø±â ½ÃÀü ÈÄ
     {
         animator.SetTrigger("ultimateAttack");
+        SpawnUltimateSkill();
     }
 
     void ActivateUltimate()//±Ã±Ø±â ½ÃÀü
@@ -87,11 +95,55 @@ public class PlayerAction : MonoBehaviour
         StartCoroutine(UltimateCooldown(30f));//±Ã±Ø±â ½ÃÀü Á¾·á ½ÃÁ¡¿¡ ÄðÅ¸ÀÓ ´Ù½Ã ½ÃÀÛ
     }
 
-    IEnumerator UltimateCooldown(float cooldownTime) //±Ã±Ø±â ÄðÅ¸ÀÓ
+    IEnumerator UltimateCooldown(float cooldownTime)//±Ã±Ø±â ÄðÅ¸ÀÓ
     {
         canUseUltimate = false;
         yield return new WaitForSeconds(cooldownTime);
         canUseUltimate = true;
     }
 
+    public void SpawnNormalAttack()
+    {
+        GameObject effect = Instantiate(normalAttackPrefab, attackSpawnPoint.position, Quaternion.identity);
+
+        bool facingLeft = GetComponent<SpriteRenderer>().flipX;
+
+        Vector3 scale = effect.transform.localScale;
+        scale.x = facingLeft ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
+        effect.transform.localScale = scale;
+
+        Rigidbody2D rb = effect.GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.linearVelocity = (facingLeft ? Vector2.left : Vector2.right) * 10f;
+        }
+    }
+
+    public void SpawnRightClickSkill()
+    {
+        GameObject skill = Instantiate(rightClickSkillPrefab, attackSpawnPoint.position, Quaternion.identity);
+
+        bool facingLeft = GetComponent<SpriteRenderer>().flipX;
+
+        Vector3 scale = skill.transform.localScale;
+        scale.x = facingLeft ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
+        skill.transform.localScale = scale;
+
+        Rigidbody2D rb = skill.GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.linearVelocity = (facingLeft ? Vector2.left : Vector2.right) * 15f;
+        }
+    }
+
+
+    public void SpawnUltimateSkill()
+    {
+        GameObject ultimate = Instantiate(ultimatePrefab, attackSpawnPoint.position, Quaternion.identity);
+
+        bool facingLeft = GetComponent<SpriteRenderer>().flipX;
+        Vector2 dir = facingLeft ? Vector2.left : Vector2.right;
+
+        ultimate.GetComponent<UltimateProjectile>().SetDirection(dir);
+    }
 }

@@ -9,6 +9,8 @@ public class PlayerMoving : MonoBehaviour
     private Animator animator;
     private bool isGrounded = true;
 
+    public Transform attackSpawnPoint;
+
     public PlayerState currentState = PlayerState.Normal;
 
     void Start()
@@ -38,6 +40,8 @@ public class PlayerMoving : MonoBehaviour
         {
             spriteRenderer.flipX = moveInput < 0;
             animator.SetBool("isRunning", true);
+
+            UpdateSpawnPoint();
         }
         else
         {
@@ -63,4 +67,12 @@ public class PlayerMoving : MonoBehaviour
             animator.SetBool("isJumping", false);
         }
     }
+    void UpdateSpawnPoint()
+    {
+        if (spriteRenderer.flipX)
+            attackSpawnPoint.localPosition = new Vector3(-0.5f, 0, 0); // 哭率 漠场
+        else
+            attackSpawnPoint.localPosition = new Vector3(+0.5f, 0, 0); // 坷弗率 漠场
+    }
+
 }

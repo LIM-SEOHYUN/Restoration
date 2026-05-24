@@ -8,11 +8,14 @@ public class AttackEffect : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        rb.linearVelocity = transform.right * speed;
         Destroy(gameObject, lifeTime);
     }
 
@@ -29,5 +32,11 @@ public class AttackEffect : MonoBehaviour
             other.GetComponent<EnemyHealth>().TakeDamage(damage);
             Destroy(gameObject);
         }
+    }
+    public void SetDirection(Vector2 dir)
+    {
+        if (rb == null) rb = GetComponent<Rigidbody2D>();
+        rb.linearVelocity = dir.normalized * speed;
+        Destroy(gameObject, lifeTime);
     }
 }
