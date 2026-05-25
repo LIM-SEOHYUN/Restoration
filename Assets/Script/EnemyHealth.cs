@@ -3,11 +3,14 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     public int maxHealth = 100;
-    private int currentHealth;
+    public int currentHealth;
+
+    private Animator animator;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         currentHealth = maxHealth;
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -19,9 +22,9 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
-        Debug.Log(gameObject.name + " took " + amount + " damage. Current HP: " + currentHealth);
+        animator.SetTrigger("isHit");
 
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             Die();
         }
@@ -29,7 +32,9 @@ public class EnemyHealth : MonoBehaviour
 
     void Die()
     {
+        animator.SetBool("isDead", true);
         Debug.Log(gameObject.name + " died!");
-        Destroy(gameObject);
+        Destroy(gameObject, 1f);
     }
+    public int CurrentHealth => currentHealth;
 }
