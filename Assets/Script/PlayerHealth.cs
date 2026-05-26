@@ -3,20 +3,27 @@ using System.Collections;
 
 public class PlayerHealth : MonoBehaviour
 {
+    [Header("HP")]
     public int hp = 100;
     public int maxHp = 100;
+
     public PlayerMoving playerMoving;
+
     private Animator animator;
     private bool isDead = false;
     public StatusUI statusUI;
+
+    public float popupOffsetY = 1.5f;
 
     [Header("Color")]
     private SpriteRenderer sr;
     private Color originalColor;
 
     [Header("invincible")]
-    private bool isInvincible = false; //무적 여부
-    public float invincibleDuration = 1f;//무적 유지시간
+    private bool isInvincible = false;
+    public float invincibleDuration = 1f;
+
+    public GameObject damagePopupPrefab;
 
     void Start()
     {
@@ -27,6 +34,8 @@ public class PlayerHealth : MonoBehaviour
         statusUI.UpdateHP(hp, maxHp);
     }
 
+
+
     public void TakeDamage(int damage)
     {
         if (isDead || isInvincible) return;
@@ -34,7 +43,19 @@ public class PlayerHealth : MonoBehaviour
         hp -= damage;
         if (hp < 0) hp = 0;
 
-        statusUI.UpdateHP(hp, maxHp);//체력 UI 갱신
+        statusUI.UpdateHP(hp, maxHp);
+
+        if (damagePopupPrefab != null)
+        {
+            Vector3 spawnPos = transform.position + new Vector3(0, popupOffsetY, 0);
+            GameObject popup = Instantiate(damagePopupPrefab, spawnPos, Quaternion.identity);
+
+            DamagePopup dp = popup.GetComponentInChildren<DamagePopup>();
+            if (dp != null)
+            {
+                dp.Setup(damage, false);
+            }
+        }
 
         if (hp <= 0)
         {
@@ -49,46 +70,36 @@ public class PlayerHealth : MonoBehaviour
     void Die()
     {
         isDead = true;
-        playerMoving.currentState = PlayerState.Dead;
-        animator.SetTrigger("isDead");
 
         if (playerMoving.currentState == PlayerState.Ultimate)
         {
-            animator.SetBool("isUltimate", true); //궁극기 사망 애니메이션
+            animator.SetBool("isUltimate", true);
         }
         else
         {
-            animator.SetBool("isUltimate", false); //일반 사망 애니메이션
+            animator.SetBool("isUltimate", false);
         }
 
-        // 이동/스킬 입력 막기
+        playerMoving.currentState = PlayerState.Dead;
+        animator.SetTrigger("isDead");
+
         playerMoving.enabled = false;
         GetComponent<PlayerAction>().enabled = false;
+
+        Destroy(gameObject, 2f);
     }
-    IEnumerator DamageFlash()//피해를 입었을 때 깜빡거림
+
+    IEnumerator DamageFlash()
     {
+        isInvincible = true;
         for (int i = 0; i < 2; i++)
         {
             sr.color = Color.red;
             yield return new WaitForSeconds(0.1f);
             sr.color = originalColor;
             yield return new WaitForSeconds(0.1f);
-
         }
-
-        IEnumerator DamageRoutine()
-        {
-            isInvincible = true;
-            for (int i = 0; i < 2; i++)
-            {
-                sr.color = Color.red;
-                yield return new WaitForSeconds(0.1f);
-                sr.color = originalColor;
-                yield return new WaitForSeconds(0.1f);
-            }
-            yield return new WaitForSeconds(invincibleDuration);//무적 유지 시간
-            isInvincible = false;
-        }
-
+        yield return new WaitForSeconds(invincibleDuration);
+        isInvincible = false;
     }
 }

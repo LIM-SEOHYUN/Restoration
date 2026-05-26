@@ -117,6 +117,10 @@ public class PlayerAction : MonoBehaviour
         {
             rb.linearVelocity = (facingLeft ? Vector2.left : Vector2.right) * 10f;
         }
+
+        Projectile projectile = effect.GetComponent<Projectile>();
+        if (projectile != null)
+            projectile.baseDamage = 10;
     }
 
     public void SpawnRightClickSkill()
@@ -134,6 +138,10 @@ public class PlayerAction : MonoBehaviour
         {
             rb.linearVelocity = (facingLeft ? Vector2.left : Vector2.right) * 15f;
         }
+
+        Projectile projectile = skill.GetComponent<Projectile>();
+        if (projectile != null)
+            projectile.baseDamage = 20;
     }
 
 
@@ -145,5 +153,9 @@ public class PlayerAction : MonoBehaviour
         Vector2 dir = facingLeft ? Vector2.left : Vector2.right;
 
         ultimate.GetComponent<UltimateProjectile>().SetDirection(dir);
+
+        Projectile projectile = ultimate.GetComponent<Projectile>();
+        if (projectile != null)
+            projectile.baseDamage = 50;
     }
 }

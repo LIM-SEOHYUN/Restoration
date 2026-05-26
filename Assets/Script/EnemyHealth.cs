@@ -2,8 +2,12 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
+    [Header ("Health")]
     public int maxHealth = 100;
     public int currentHealth;
+    public float popupOffsetY = 1.5f;
+
+
 
     private Animator animator;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -37,4 +41,6 @@ public class EnemyHealth : MonoBehaviour
         Destroy(gameObject, 1f);
     }
     public int CurrentHealth => currentHealth;
+
+
 }

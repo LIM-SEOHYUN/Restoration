@@ -25,20 +25,20 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
         animator = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
         enemyHealth = GetComponent<EnemyHealth>();
 
-        // y축은 0으로 고정 → 위로 올라가는 문제 방지
         walkDirection = new Vector2(Random.Range(-1f, 1f), 0).normalized;
     }
 
     void Update()
     {
         if (isDead) return;
+        if (player == null) return;
 
-        if (enemyHealth.currentHealth <= 0)
+        if (enemyHealth == null || enemyHealth.currentHealth <= 0)
         {
             Die();
             return;
@@ -49,17 +49,6 @@ public class Enemy : MonoBehaviour
         if (distance <= detectionRange)
         {
             animator.SetBool("isAttacking", true);
-
-            if (Time.time - lastDamageTime >= damageInterval)
-            {
-                PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
-                if (playerHealth != null)
-                {
-                    playerHealth.TakeDamage(contactDamage);
-                    lastDamageTime = Time.time;
-                }
-            }
-
             sr.flipX = player.position.x < transform.position.x;
         }
         else
@@ -69,8 +58,31 @@ public class Enemy : MonoBehaviour
 
             rb.MovePosition(rb.position + walkDirection * moveSpeed * Time.deltaTime);
 
-            if (walkDirection.x < 0) sr.flipX = true;
-            else if (walkDirection.x > 0) sr.flipX = false;
+            if (walkDirection.x < 0)
+            {
+                sr.flipX = true;
+                if (attackPoint != null)
+                {
+                    attackPoint.localPosition = new Vector3(
+                        -Mathf.Abs(attackPoint.localPosition.x),
+                        attackPoint.localPosition.y,
+                        attackPoint.localPosition.z
+                    );
+                }
+            }
+            else if (walkDirection.x > 0)
+            {
+                sr.flipX = false;
+                if (attackPoint != null)
+                {
+                    attackPoint.localPosition = new Vector3(
+                        Mathf.Abs(attackPoint.localPosition.x),
+                        attackPoint.localPosition.y,
+                        attackPoint.localPosition.z
+                    );
+                }
+            }
+
         }
     }
 
@@ -79,20 +91,36 @@ public class Enemy : MonoBehaviour
         if (isDead) return;
 
         enemyHealth.TakeDamage(damage);
-        animator.SetTrigger("isHit"); // 피격 모션 전용 Trigger
+        animator.SetTrigger("isAttaking");
     }
 
     void Die()
     {
         isDead = true;
         animator.SetBool("isDead", true);
+        this.enabled = false;
         Destroy(gameObject, 1f);
     }
 
-    // 애니메이션 이벤트에서 호출되는 공격 판정
     public void DealDamage()
     {
+        Debug.Log("DealDamage called");
         Collider2D hitPlayer = Physics2D.OverlapBox(attackPoint.position, attackSize, 0f, playerLayer);
+        if (hitPlayer != null)
+        {
+            Debug.Log("Player detected: " + hitPlayer.name);
+            PlayerHealth playerHealth = hitPlayer.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                Debug.Log("Applying damage: " + contactDamage);
+                playerHealth.TakeDamage(contactDamage);
+            }
+        }
+        else
+        {
+            Debug.Log("No player in range");
+        }
+        
         if (hitPlayer != null)
         {
             if (Time.time - lastDamageTime >= damageInterval)

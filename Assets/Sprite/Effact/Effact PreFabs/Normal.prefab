@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 7879045762045605520}
   - component: {fileID: 1895330801266753879}
   - component: {fileID: 6497446643276330269}
-  m_Layer: 0
+  - component: {fileID: 6043982706671877844}
+  m_Layer: 9
   m_Name: Normal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,3 +196,20 @@ MonoBehaviour:
   damage: 10
   speed: 10
   lifeTime: 1.5
+--- !u!114 &6043982706671877844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5507633788837867489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02aca30e0d8d4db4da3508d45c60819e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Projectile
+  baseDamage: 10
+  criticalChance: 0.1
+  minCriticalMultiplier: 1.1
+  maxCriticalMultiplier: 2
+  damagePopupPrefab: {fileID: 6743151928787529512, guid: b0fe8dc10bde2d64282430d6c0f1ad60, type: 3}
