@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class AttackEffect : MonoBehaviour
 {
-    public int damage = 10;
+    public int damage =50;
     public float speed = 10f;
     public float lifeTime = 1.5f; //이펙트 유지 시간
 

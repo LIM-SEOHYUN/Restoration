@@ -21,6 +21,13 @@ public class PlayerAction : MonoBehaviour
     private bool canUseUltimate = true; //궁극기가 실행되었는지
     private bool canUseRightSkill = true; //우클릭 스킬
 
+
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip normalAttackSound; //일반스킬 사운드
+    public AudioClip rightSkillSound; //우클릭 사운드
+    public AudioClip ultimateCastSound; //궁극기 시전 사운드
+    public AudioClip ultimateAttackSound; //궁극기 공격 사운드
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -28,6 +35,7 @@ public class PlayerAction : MonoBehaviour
 
     void Update()
     {
+       
         if (playerMoving.currentState == PlayerState.Normal) //스킬 실행
         {
             if (Input.GetMouseButtonDown(0)) NormalAttack();
@@ -43,6 +51,7 @@ public class PlayerAction : MonoBehaviour
     void NormalAttack() //일반공격
     {
         animator.SetTrigger("isAttacking");
+        if (normalAttackSound != null) audioSource.PlayOneShot(normalAttackSound);
     }
 
     void NormalSkill() //우클릭 스킬
@@ -51,6 +60,7 @@ public class PlayerAction : MonoBehaviour
         canUseRightSkill = false;
         rightSkillUI.StartCooldown(5f);
         StartCoroutine(RightSkillCooldown(5f));
+        if (rightSkillSound != null) audioSource.PlayOneShot(rightSkillSound);
     }
 
     IEnumerator RightSkillCooldown(float cooldownTime) //우클릭 쿨타임
@@ -64,6 +74,9 @@ public class PlayerAction : MonoBehaviour
     {
         animator.SetTrigger("ultimateAttack");
         SpawnUltimateSkill();
+
+        if (ultimateAttackSound != null)
+            audioSource.PlayOneShot(ultimateAttackSound);
     }
 
     void ActivateUltimate()//궁극기 시전
@@ -74,6 +87,7 @@ public class PlayerAction : MonoBehaviour
 
         ultimateSkillUI.SetGlow(true);//궁극기 시전 시 아이콘 빛남 효과
         StartCoroutine(UltimateDuration(10f));
+        if (ultimateCastSound != null) audioSource.PlayOneShot(ultimateCastSound);
     }
 
     IEnumerator UltimateDuration(float duration)//궁극기 유지
@@ -120,7 +134,7 @@ public class PlayerAction : MonoBehaviour
 
         Projectile projectile = effect.GetComponent<Projectile>();
         if (projectile != null)
-            projectile.baseDamage = 10;
+            projectile.baseDamage = 100;
     }
 
     public void SpawnRightClickSkill()
@@ -141,7 +155,7 @@ public class PlayerAction : MonoBehaviour
 
         Projectile projectile = skill.GetComponent<Projectile>();
         if (projectile != null)
-            projectile.baseDamage = 20;
+            projectile.baseDamage = 200;
     }
 
 
@@ -156,6 +170,8 @@ public class PlayerAction : MonoBehaviour
 
         Projectile projectile = ultimate.GetComponent<Projectile>();
         if (projectile != null)
-            projectile.baseDamage = 50;
+            projectile.baseDamage = 300;
     }
+
+    
 }

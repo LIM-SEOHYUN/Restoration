@@ -25,7 +25,7 @@ public class SkillCooldownUI : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -71,5 +71,10 @@ public class SkillCooldownUI : MonoBehaviour
         mask.enabled = true;
         cooldownText.enabled = true;
         if (outline != null) outline.enabled = false;
+    }
+
+    void OnDestroy()
+    {
+
     }
 }

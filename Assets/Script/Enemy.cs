@@ -17,23 +17,40 @@ public class Enemy : MonoBehaviour
 
     public Transform attackPoint;
     public Vector2 attackSize = new Vector2(1f, 1f);
-    public LayerMask playerLayer;
+    public Vector2 attackOffset = new Vector2(1f, 0f);
+    public LayerMask playerLayer; //플레이어 레이어 선택
 
     private float lastDamageTime;
     public float damageInterval = 1f;
 
-    void Start()
+    private float stateTimer;
+    private float stateDuration = 3f;
+    private bool isIdle = false;
+
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip attackSound;
+    public AudioClip deathSound;
+
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    void Start()
+    {
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
         animator = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
         enemyHealth = GetComponent<EnemyHealth>();
 
-        walkDirection = new Vector2(Random.Range(-1f, 1f), 0).normalized;
+        MonsterManager.instance.RegisterMonster();
+
+
+        walkDirection = new Vector2(Random.value > 0.5f ? 1f : -1f, 0f);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (isDead) return;
         if (player == null) return;
@@ -42,6 +59,31 @@ public class Enemy : MonoBehaviour
         {
             Die();
             return;
+        }
+
+        if (isDead) return;
+
+        stateTimer += Time.deltaTime;
+        if (stateTimer >= stateDuration)
+        {
+            // 50% 확률로 Idle 전환
+            isIdle = Random.value > 0.5f;
+            if (!isIdle)
+                walkDirection = new Vector2(Random.value > 0.5f ? 1f : -1f, 0f);
+            stateTimer = 0f;
+        }
+
+        if (isIdle)
+        {
+            animator.SetBool("isIdle", true);
+            animator.SetBool("isWalking", false);
+        }
+        else
+        {
+            animator.SetBool("isIdle", false);
+            animator.SetBool("isWalking", true);
+            rb.MovePosition(rb.position + walkDirection * moveSpeed * Time.deltaTime);
+            sr.flipX = walkDirection.x < 0;
         }
 
         float distance = Vector2.Distance(transform.position, player.position);
@@ -98,14 +140,18 @@ public class Enemy : MonoBehaviour
     {
         isDead = true;
         animator.SetBool("isDead", true);
+        if (deathSound != null) audioSource.PlayOneShot(deathSound);
         this.enabled = false;
+        MonsterManager.instance.MonsterDied();
         Destroy(gameObject, 1f);
     }
 
     public void DealDamage()
     {
-        Debug.Log("DealDamage called");
-        Collider2D hitPlayer = Physics2D.OverlapBox(attackPoint.position, attackSize, 0f, playerLayer);
+        float offsetX = sr.flipX ? -attackOffset.x : attackOffset.x;
+        Vector2 boxCenter = attackPoint.position + new Vector3(offsetX, attackOffset.y, 0);
+
+        Collider2D hitPlayer = Physics2D.OverlapBox(boxCenter, attackSize, 0f, playerLayer);
         if (hitPlayer != null)
         {
             Debug.Log("Player detected: " + hitPlayer.name);
@@ -132,6 +178,7 @@ public class Enemy : MonoBehaviour
                     lastDamageTime = Time.time;
                 }
             }
+            if (attackSound != null) audioSource.PlayOneShot(attackSound);
         }
     }
 
@@ -139,6 +186,19 @@ public class Enemy : MonoBehaviour
     {
         if (attackPoint == null) return;
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(attackPoint.position, attackSize);
+        Vector2 boxCenter = attackPoint.position
+                          + (Vector3)attackPoint.right * attackOffset.x
+                          + (Vector3)attackPoint.up * attackOffset.y;
+        Gizmos.DrawWireCube(boxCenter, attackSize);
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Wall"))
+        {
+            float newX = Random.value > 0.5f ? 1f : -1f;
+            walkDirection = new Vector2(newX, 0f).normalized;
+        }
+    }
+
+
 }

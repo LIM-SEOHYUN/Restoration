@@ -1,11 +1,14 @@
 using UnityEngine;
 using System.Collections;
+using TMPro;
 
 public class PlayerHealth : MonoBehaviour
 {
     [Header("HP")]
-    public int hp = 100;
-    public int maxHp = 100;
+    public int hp = 1000;
+    public int maxHp = 1000;
+
+    public TextMeshProUGUI diedPenal;
 
     public PlayerMoving playerMoving;
 
@@ -25,6 +28,11 @@ public class PlayerHealth : MonoBehaviour
 
     public GameObject damagePopupPrefab;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip deathSound;
+    public AudioClip attackSound; //맞았을 때
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -32,6 +40,9 @@ public class PlayerHealth : MonoBehaviour
         originalColor = sr.color;
 
         statusUI.UpdateHP(hp, maxHp);
+
+        hp = GameManager.instance.playerHealth;
+        maxHp = 1000;
     }
 
 
@@ -41,7 +52,10 @@ public class PlayerHealth : MonoBehaviour
         if (isDead || isInvincible) return;
 
         hp -= damage;
+        if (attackSound != null) audioSource.PlayOneShot(attackSound);
         if (hp < 0) hp = 0;
+
+        GameManager.instance.playerHealth = hp;
 
         statusUI.UpdateHP(hp, maxHp);
 
@@ -67,9 +81,11 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+
     void Die()
     {
         isDead = true;
+        if (deathSound != null) audioSource.PlayOneShot(deathSound);
 
         if (playerMoving.currentState == PlayerState.Ultimate)
         {
@@ -87,6 +103,10 @@ public class PlayerHealth : MonoBehaviour
         GetComponent<PlayerAction>().enabled = false;
 
         Destroy(gameObject, 2f);
+
+        //FindObjectOfType<GameOverUI>().Show();
+
+
     }
 
     IEnumerator DamageFlash()
@@ -101,5 +121,10 @@ public class PlayerHealth : MonoBehaviour
         }
         yield return new WaitForSeconds(invincibleDuration);
         isInvincible = false;
+    }
+
+    void OnDestroy()
+    {
+        GameManager.instance.playerHealth = hp;
     }
 }

@@ -7,6 +7,10 @@ public class EnemyHealth : MonoBehaviour
     public int currentHealth;
     public float popupOffsetY = 1.5f;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip deathSound;
+
 
 
     private Animator animator;

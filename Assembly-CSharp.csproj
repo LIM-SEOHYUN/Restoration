@@ -63,21 +63,28 @@
   <ItemGroup>
     <Compile Include="Assets\Script\EnemyHealthBar.cs" />
     <Compile Include="Assets\Script\AttackEffect.cs" />
+    <Compile Include="Assets\Script\UIManager.cs" />
+    <Compile Include="Assets\Script\PortalTrigger.cs" />
     <Compile Include="Assets\Script\EnemyHealth.cs" />
+    <Compile Include="Assets\Script\GameOverUI.cs" />
     <Compile Include="Assets\Script\UltimateProjectile.cs" />
     <Compile Include="Assets\Script\CutSceneUI.cs" />
     <Compile Include="Assets\Script\PoisionArea.cs" />
     <Compile Include="Assets\Script\StatusUI.cs" />
     <Compile Include="Assets\Script\Projectile.cs" />
     <Compile Include="Assets\Script\SkillCooldownUI.cs" />
+    <Compile Include="Assets\Script\PlayerPersistence.cs" />
     <Compile Include="Assets\Script\BackGroundManager.cs" />
     <Compile Include="Assets\Script\PlayerAction.cs" />
+    <Compile Include="Assets\Script\GameManager.cs" />
     <Compile Include="Assets\Script\PlayerState.cs" />
     <Compile Include="Assets\Script\CameraFollowTarget.cs" />
+    <Compile Include="Assets\Script\MonsterManager.cs" />
     <Compile Include="Assets\Script\DamagePopup.cs" />
     <Compile Include="Assets\Script\Enemy.cs" />
     <Compile Include="Assets\Script\PlayerHealth.cs" />
     <Compile Include="Assets\Script\PlayerMoving.cs" />
+    <Compile Include="Assets\Script\DialogueUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -13,6 +13,17 @@ public class PlayerMoving : MonoBehaviour
 
     public PlayerState currentState = PlayerState.Normal;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip footstepSound;
+
+    public void PlayFootstepSound()
+    {
+        if (footstepSound != null)
+            audioSource.PlayOneShot(footstepSound);
+    }
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -74,5 +85,7 @@ public class PlayerMoving : MonoBehaviour
         else
             attackSpawnPoint.localPosition = new Vector3(+0.5f, 0, 0); // ¿À¸¥ÂÊ Ä®³¡
     }
+
+
 
 }

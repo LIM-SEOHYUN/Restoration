@@ -6,7 +6,7 @@ public class PoisonArea : MonoBehaviour
     public int poisonDamage = 5;
     public float duration = 5f;//유지시간
     public int tickCount = 3;
-    public float tickInterval = 0.5f;
+    public float tickInterval = 1f;
 
 
     void Start()
@@ -18,7 +18,11 @@ public class PoisonArea : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            StartCoroutine(ApplyPoison(other.GetComponent<EnemyHealth>()));
+            EnemyHealth enemy = other.GetComponent<EnemyHealth>();
+            if (enemy != null)
+            {
+                StartCoroutine(ApplyPoison(enemy));
+            }
         }
     }
 
