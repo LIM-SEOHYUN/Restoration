@@ -28,6 +28,12 @@ public class PlayerAction : MonoBehaviour
     public AudioClip rightSkillSound; //¿ìÅ¬¸¯ »ç¿îµå
     public AudioClip ultimateCastSound; //±Ã±Ø±â ½ÃÀü »ç¿îµå
     public AudioClip ultimateAttackSound; //±Ã±Ø±â °ø°Ý »ç¿îµå
+
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -83,7 +89,10 @@ public class PlayerAction : MonoBehaviour
     {
         playerMoving.currentState = PlayerState.Ultimate;
         animator.SetBool("isUltimate", true);
-        cutsceneUI.ShowCutscene(); // ÄÆ¾À ½ÇÇà
+        if (cutsceneUI != null)
+        {
+            cutsceneUI.ShowCutscene();
+        }
 
         ultimateSkillUI.SetGlow(true);//±Ã±Ø±â ½ÃÀü ½Ã ¾ÆÀÌÄÜ ºû³² È¿°ú
         StartCoroutine(UltimateDuration(10f));

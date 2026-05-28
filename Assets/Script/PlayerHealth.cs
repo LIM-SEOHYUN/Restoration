@@ -33,6 +33,12 @@ public class PlayerHealth : MonoBehaviour
     public AudioClip deathSound;
     public AudioClip attackSound; //맞았을 때
 
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -123,8 +129,12 @@ public class PlayerHealth : MonoBehaviour
         isInvincible = false;
     }
 
-    void OnDestroy()
+    void OnDisable()
     {
-        GameManager.instance.playerHealth = hp;
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.playerHealth = hp;
+        }
     }
+
 }

@@ -17,6 +17,12 @@ public class PlayerMoving : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip footstepSound;
 
+
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     public void PlayFootstepSound()
     {
         if (footstepSound != null)

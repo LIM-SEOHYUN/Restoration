@@ -4,6 +4,9 @@ using System.Collections;
 
 public class CutsceneUI : MonoBehaviour
 {
+
+    private static CutsceneUI instance;
+
     public RectTransform cutsceneImage; //ÄÆ¾À À§Ä¡ Å©±â Á¦¾î
     public CanvasGroup canvasGroup; //¾ËÆÄ°ª Á¦¾î
 
@@ -12,12 +15,18 @@ public class CutsceneUI : MonoBehaviour
 
     void Awake()
     {
-        gameObject.SetActive(false);
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     public void ShowCutscene()
     {
-        gameObject.SetActive(true); //±Ã±Ø±â ½ÃÀü ½Ã ÄÆ¾À µîÀå
+        if (!gameObject.activeSelf) gameObject.SetActive(true); //±Ã±Ø±â ½ÃÀü ½Ã ÄÆ¾À µîÀå
         StartCoroutine(SlideAndFade()); //½½¶óÀÌµå + ÆäÀÌµå
     }
 

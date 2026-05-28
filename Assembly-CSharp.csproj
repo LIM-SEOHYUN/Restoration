@@ -68,6 +68,9 @@
     <Compile Include="Assets\Script\EnemyHealth.cs" />
     <Compile Include="Assets\Script\GameOverUI.cs" />
     <Compile Include="Assets\Script\UltimateProjectile.cs" />
+    <Compile Include="Assets\Script\FadeInOut.cs" />
+    <Compile Include="Assets\Script\MainCameraNotDestroy.cs" />
+    <Compile Include="Assets\Script\PlayerSpawner.cs" />
     <Compile Include="Assets\Script\CutSceneUI.cs" />
     <Compile Include="Assets\Script\PoisionArea.cs" />
     <Compile Include="Assets\Script\StatusUI.cs" />

@@ -9,6 +9,8 @@ TagManager:
   - EnemyHitPoint
   - Wall
   - Portal
+  - CameraSpawn
+  - PlayerSpawn
   layers:
   - Default
   - TransparentFX

@@ -9,6 +9,11 @@ public class PoisonArea : MonoBehaviour
     public float tickInterval = 1f;
 
 
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     void Start()
     {
         Destroy(gameObject, duration);

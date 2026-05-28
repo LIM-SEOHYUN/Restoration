@@ -11,6 +11,9 @@ public class AttackEffect : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+
+            DontDestroyOnLoad(gameObject);
+
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

@@ -11,6 +11,12 @@ public class Projectile : MonoBehaviour //치명타 설정
 
     public GameObject damagePopupPrefab;
 
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("충돌 대상: " + collision.name);

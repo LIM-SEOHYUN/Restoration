@@ -1,5 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
+using UnityEditor.ShaderGraph.Internal;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,8 +18,14 @@ public class GameManager : MonoBehaviour
     public AudioSource audioSource;
     public GameObject cutsceneUI;
 
+    [Header("Scene Change")]
+    public FadeInOut fadeUI;
+
     void Awake()
     {
+            DontDestroyOnLoad(gameObject);
+
+
         if (instance == null)
         {
             instance = this;
@@ -41,4 +50,9 @@ public class GameManager : MonoBehaviour
     {
         
     }
+    public void NextScenesString(string nextSceneName)
+    {
+        StartCoroutine(fadeUI.FadeOutAndLoad(nextSceneName));
+    }
+
 }
