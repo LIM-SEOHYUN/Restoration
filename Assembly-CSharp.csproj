@@ -65,6 +65,8 @@
     <Compile Include="Assets\Script\AttackEffect.cs" />
     <Compile Include="Assets\Script\UIManager.cs" />
     <Compile Include="Assets\Script\PortalTrigger.cs" />
+    <Compile Include="Assets\Script\Boss\BossController.cs" />
+    <Compile Include="Assets\Script\Boss\SpellEffact.cs" />
     <Compile Include="Assets\Script\EnemyHealth.cs" />
     <Compile Include="Assets\Script\GameOverUI.cs" />
     <Compile Include="Assets\Script\UltimateProjectile.cs" />
@@ -78,14 +80,17 @@
     <Compile Include="Assets\Script\SkillCooldownUI.cs" />
     <Compile Include="Assets\Script\PlayerPersistence.cs" />
     <Compile Include="Assets\Script\BackGroundManager.cs" />
+    <Compile Include="Assets\Script\Boss\BossHealth.cs" />
     <Compile Include="Assets\Script\PlayerAction.cs" />
     <Compile Include="Assets\Script\GameManager.cs" />
     <Compile Include="Assets\Script\PlayerState.cs" />
     <Compile Include="Assets\Script\CameraFollowTarget.cs" />
     <Compile Include="Assets\Script\MonsterManager.cs" />
+    <Compile Include="Assets\Script\CameraSetup.cs" />
     <Compile Include="Assets\Script\DamagePopup.cs" />
     <Compile Include="Assets\Script\Enemy.cs" />
     <Compile Include="Assets\Script\PlayerHealth.cs" />
+    <Compile Include="Assets\Script\Boss\StatueTrigger.cs" />
     <Compile Include="Assets\Script\PlayerMoving.cs" />
     <Compile Include="Assets\Script\DialogueUI.cs" />
   </ItemGroup>

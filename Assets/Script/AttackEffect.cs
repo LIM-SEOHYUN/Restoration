@@ -12,7 +12,6 @@ public class AttackEffect : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
-            DontDestroyOnLoad(gameObject);
 
     }
 
@@ -32,9 +31,25 @@ public class AttackEffect : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            other.GetComponent<EnemyHealth>().TakeDamage(damage);
+            EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(damage);
+            }
             Destroy(gameObject);
         }
+
+        if (other.CompareTag("Boss"))
+        {
+            BossHealth bossHealth = other.GetComponent<BossHealth>();
+            if (bossHealth != null)
+            {
+                bossHealth.TakeDamage(damage);
+            }
+            Destroy(gameObject);
+        }
+
+
     }
     public void SetDirection(Vector2 dir)
     {

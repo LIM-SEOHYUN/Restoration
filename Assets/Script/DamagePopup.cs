@@ -10,10 +10,7 @@ public class DamagePopup : MonoBehaviour
     private Color textColor;
 
 
-    void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
+
 
     void Start()
     {

@@ -58,13 +58,26 @@ public class PlayerMoving : MonoBehaviour
             spriteRenderer.flipX = moveInput < 0;
             animator.SetBool("isRunning", true);
 
+            if (!audioSource.isPlaying)//발소리 루프
+            {
+                audioSource.clip = footstepSound;
+                audioSource.loop = true;
+                audioSource.Play();
+            }
+
             UpdateSpawnPoint();
         }
         else
         {
             animator.SetBool("isRunning", false);
+
+            if (audioSource.isPlaying)
+            {
+                audioSource.Stop();
+            }
         }
     }
+
 
     void Jump()
     {

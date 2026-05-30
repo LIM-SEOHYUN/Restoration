@@ -1,14 +1,15 @@
 using UnityEngine;
 using System.Collections;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
     [Header("HP")]
-    public int hp = 1000;
-    public int maxHp = 1000;
+    public int hp = 3000;
+    public int maxHp = 3000;
 
-    public TextMeshProUGUI diedPenal;
+    public GameObject diedPanel;
 
     public PlayerMoving playerMoving;
 
@@ -33,8 +34,11 @@ public class PlayerHealth : MonoBehaviour
     public AudioClip deathSound;
     public AudioClip attackSound; //맞았을 때
 
+    public static PlayerHealth Instance;
+
     void Awake()
     {
+        Instance = this;
         DontDestroyOnLoad(gameObject);
     }
 
@@ -48,7 +52,7 @@ public class PlayerHealth : MonoBehaviour
         statusUI.UpdateHP(hp, maxHp);
 
         hp = GameManager.instance.playerHealth;
-        maxHp = 1000;
+        maxHp = 3000;
     }
 
 
@@ -80,6 +84,8 @@ public class PlayerHealth : MonoBehaviour
         if (hp <= 0)
         {
             Die();
+            if (GameOverUI.Instance != null)
+                GameOverUI.Instance.ShowGameOver();
         }
         else
         {
@@ -108,9 +114,12 @@ public class PlayerHealth : MonoBehaviour
         playerMoving.enabled = false;
         GetComponent<PlayerAction>().enabled = false;
 
-        Destroy(gameObject, 2f);
+        if (diedPanel != null)
+            diedPanel.SetActive(true);
 
-        //FindObjectOfType<GameOverUI>().Show();
+        gameObject.SetActive(false);
+
+        
 
 
     }
@@ -136,5 +145,27 @@ public class PlayerHealth : MonoBehaviour
             GameManager.instance.playerHealth = hp;
         }
     }
+    public void ResetHealth()
+    {
+        hp = maxHp;
+        statusUI.UpdateHP(hp, maxHp);
+        isDead = false;
+
+
+        gameObject.SetActive(true);
+
+
+
+        playerMoving.enabled = true;
+        GetComponent<PlayerAction>().enabled = true;
+
+        playerMoving.currentState = PlayerState.Normal;
+
+        animator.ResetTrigger("isDead");
+        animator.SetBool("isUltimate", false);
+        animator.Play("Player_idle");
+    }
+
+
 
 }

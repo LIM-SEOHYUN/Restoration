@@ -77,4 +77,14 @@ public class SkillCooldownUI : MonoBehaviour
     {
 
     }
+
+    public void ResetUI()
+    {
+        isCooldown = false;
+        cooldownTimer = 0f;
+        mask.enabled = false;
+        cooldownText.enabled = false;
+        if (outline != null) outline.enabled = false;
+    }
+
 }

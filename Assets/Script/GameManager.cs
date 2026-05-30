@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -9,7 +8,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     [Header("Player")]
-    public int playerHealth = 1000;
+    public int playerHealth = 3000;
+    public int maxPlayerHealth = 3000;
     public float rightSkillCooldown = 0f;
     public float ultimateCooldown = 0f;
 
@@ -54,5 +54,27 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(fadeUI.FadeOutAndLoad(nextSceneName));
     }
+
+    public void ResetAll()
+    {
+        playerHealth = maxPlayerHealth;
+
+        if (MonsterManager.instance != null)
+            MonsterManager.instance.ResetMonsters();
+
+        if (BossHealth.Instance != null)
+            BossHealth.Instance.ResetHealth();
+
+        if (PlayerHealth.Instance != null)
+        {
+            PlayerHealth.Instance.gameObject.SetActive(true);
+            PlayerHealth.Instance.ResetHealth();
+
+            PlayerAction action = PlayerHealth.Instance.GetComponent<PlayerAction>();
+            if (action != null) action.ResetCooldowns();
+        }
+    }
+
+
 
 }

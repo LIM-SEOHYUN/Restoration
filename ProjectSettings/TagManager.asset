@@ -11,6 +11,7 @@ TagManager:
   - Portal
   - CameraSpawn
   - PlayerSpawn
+  - Boss
   layers:
   - Default
   - TransparentFX

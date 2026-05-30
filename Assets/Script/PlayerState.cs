@@ -2,5 +2,6 @@ public enum PlayerState
 {
     Normal,
     Ultimate,
-    Dead
+    Dead,
+    Idle
 }

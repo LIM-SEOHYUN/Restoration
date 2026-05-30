@@ -30,8 +30,22 @@ public class UltimateProjectile : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            other.GetComponent<EnemyHealth>().TakeDamage(damage);
-            SpawnPoisonAndDestroy();
+            EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(damage);
+            }
+            Destroy(gameObject);
+        }
+
+        if (other.CompareTag("Boss"))
+        {
+            BossHealth bossHealth = other.GetComponent<BossHealth>();
+            if (bossHealth != null)
+            {
+                bossHealth.TakeDamage(damage);
+            }
+            Destroy(gameObject);
         }
     }
 

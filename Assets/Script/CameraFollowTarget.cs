@@ -21,8 +21,17 @@ public class CameraFollowTarget : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = PixelPerfectClamp(target.transform.position, PixelsPerUnit);
+        if (target == null && PlayerHealth.Instance != null)
+        {
+            target = PlayerHealth.Instance.gameObject;
+        }
+
+        if (target != null)
+        {
+            transform.position = PixelPerfectClamp(target.transform.position, PixelsPerUnit);
+        }
     }
+
 
     private Vector3 PixelPerfectClamp(Vector3 moveVector, float pixelsPerUnit)
     {

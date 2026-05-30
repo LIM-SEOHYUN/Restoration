@@ -24,4 +24,13 @@ public class MonsterManager : MonoBehaviour
     {
         return aliveMonsters <= 0;
     }
+    public void ResetMonsters()
+    {
+        aliveMonsters = 5;
+
+        foreach (var monster in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            GameObject.Destroy(monster);
+        }
+    }
 }

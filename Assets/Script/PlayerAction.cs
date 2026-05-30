@@ -81,8 +81,7 @@ public class PlayerAction : MonoBehaviour
         animator.SetTrigger("ultimateAttack");
         SpawnUltimateSkill();
 
-        if (ultimateAttackSound != null)
-            audioSource.PlayOneShot(ultimateAttackSound);
+        audioSource.PlayOneShot(ultimateAttackSound);
     }
 
     void ActivateUltimate()//±Ã±Ø±â ½ÃÀü
@@ -181,6 +180,19 @@ public class PlayerAction : MonoBehaviour
         if (projectile != null)
             projectile.baseDamage = 300;
     }
+    void PlaySound(AudioClip clip)
+    {
+        if (clip != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
+    }
 
-    
+    public void ResetCooldowns()
+    {
+        canUseRightSkill = true;
+        canUseUltimate = true;
+    }
+
+
 }
