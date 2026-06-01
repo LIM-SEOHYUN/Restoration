@@ -15,6 +15,7 @@ public class DamagePopup : MonoBehaviour
     void Start()
     {
         textColor = text.color;
+        Destroy(gameObject, 1f);
     }
 
     void Update()

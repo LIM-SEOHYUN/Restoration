@@ -75,6 +75,7 @@ public class PlayerHealth : MonoBehaviour
             GameObject popup = Instantiate(damagePopupPrefab, spawnPos, Quaternion.identity);
 
             DamagePopup dp = popup.GetComponentInChildren<DamagePopup>();
+            Destroy(popup, 1f);
             if (dp != null)
             {
                 dp.Setup(damage, false);
