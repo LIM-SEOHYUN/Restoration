@@ -1,27 +1,27 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; //삽입
+using TMPro; // TextMeshPro 사용
 
 public class StatusUI : MonoBehaviour
 {
-    public Slider hpBar;
-    public TextMeshProUGUI hpText; //삽입
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public Slider hpBar;                // 체력바 UI
+    public TextMeshProUGUI hpText;      // 체력 텍스트 UI
+
     void Start()
     {
-        
+        // 현재는 Start에서 별도 초기화 없음
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        // 현재는 Update에서 별도 로직 없음
     }
 
+    // 체력 UI 갱신 함수
     public void UpdateHP(float currentHp, float maxHp)
     {
-      hpBar.maxValue = maxHp;
-      hpBar.value = currentHp;
-      hpText.text = currentHp + " / " + maxHp;//현재체력/최대체력표시
+        hpBar.maxValue = maxHp;                     // 체력바 최대값 설정
+        hpBar.value = currentHp;                    // 현재 체력 값 반영
+        hpText.text = currentHp + " / " + maxHp;    // 텍스트로 현재/최대 체력 표시
     }
 }
